@@ -1,0 +1,99 @@
+/* ===========================================================
+ * jquery.fast-search.css
+ * v 0.1 05 March 2014
+ * ===========================================================
+ * Copyright 2014 Vladimir Mikhailovsky.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ========================================================== */
+
+.fast_search_loading{
+	width: 100%;
+	min-height: 44px;
+	min-width: 44px;
+	position: absolute;
+	background: url(images/loading.gif) no-repeat center;
+	margin-left: -10px;
+}
+
+
+.fast_search_result {
+	position: absolute;
+	border: 2px solid #e6e6e6;
+	-moz-border-radius: 0 0 5px 5px;
+	-o-border-radius: 0 0 5px 5px;
+	-webkit-border-radius: 0 0 5px 5px;
+	border-radius: 0 0 5px 5px;
+	z-index: 10;
+	background: #fff;
+	width: 100%;
+	padding: 10px 10px 10px 10px;
+	margin-top: 0;
+	border-top: none;
+	line-height: 18px;
+	min-height: 100px;
+}
+.fast_search_result img {
+	border: none;
+}
+
+.fast_search_result .search_block.primary .search_row {
+	overflow: hidden;
+	height: 54px;
+	margin: 10px 0;
+}
+
+.fast_search_result .search_block.primary .item-image {
+	display: block;
+	float: left;
+	width: 50px;
+	height: 50px;
+	line-height: 50px;
+	margin: 0 auto;
+	margin-bottom: 4px;
+	vertical-align: top;
+}
+
+.fast_search_result .search_block.primary .item-name {
+	display: block;
+	height: 40px;
+	line-height: 20px;
+	overflow: hidden;
+}
+
+.fast_search_result h4{
+	margin: 3px 0 2px 0;
+	padding: 0;
+}
+
+.fast_search_result .all-search-results{
+	height: 50px;
+	line-height: 50px;
+}
+
+.search-field-container{
+	position: relative;
+}
+.fast_search_result .search_block.primary span.search-type {
+	color: #aaa;
+	display: block;
+	height: 14px;
+	line-height: 14px;
+	overflow: hidden;
+	font-size: 11px;
+}
+.fast_search_result .item-info{
+	display: block;
+	height: 60px;
+	margin-left: 60px;
+}
