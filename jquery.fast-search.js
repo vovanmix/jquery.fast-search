@@ -67,6 +67,18 @@
 
         };
 
+		var close = function(){
+			var fast_search_result = $(this).parent().find('.fast_search_result');
+			fast_search_result.fadeOut('fast');
+		};
+
+		var focus = function(){
+			var text = $(this).val();
+			if(text != ''){
+				$(this).trigger('keyup.fastSearch');
+			}
+		};
+
         return this.each(function() {
 			if($(this).attr('fastSearch') == 'true'){
 				return;
@@ -75,6 +87,8 @@
             $(this).attr('fastSearch', 'true');
             $(this).after("<div class='fast_search_result' style='display:none;'></div>");
             $(this).bind('keyup.fastSearch', search);
+			$(this).bind('blur.fastSearch', close);
+			$(this).bind('focus.fastSearch', focus);
 
         });
 

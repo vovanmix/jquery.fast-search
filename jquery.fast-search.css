@@ -53,7 +53,17 @@
 	margin: 10px 0;
 }
 
-.fast_search_result .search_block.primary .item-image {
+/*.fast_search_result .search_block.primary .item-image {*/
+	/*display: block;*/
+	/*float: left;*/
+	/*width: 50px;*/
+	/*height: 50px;*/
+	/*line-height: 50px;*/
+	/*margin: 0 auto;*/
+	/*margin-bottom: 4px;*/
+	/*vertical-align: top;*/
+/*}*/
+.fast_search_result .search_block.primary .item-left{
 	display: block;
 	float: left;
 	width: 50px;
