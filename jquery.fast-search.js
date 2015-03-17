@@ -23,7 +23,26 @@
  * todo: add a function for mapping result into object with above properties, as a default expect the exact object as a json result
  * todo: option to work with html response - dataType json
  */
+//if (!String.prototype.format) {
+//	String.prototype.format = function() {
+//		var args = arguments;
+//		return this.replace(/{(\d+)}/g, function(match, number) {
+//			return typeof args[number] != 'undefined'
+//				? args[number]
+//				: match
+//				;
+//		});
+//	};
+//}
+
 (function($) {
+
+	var fastSearch = {
+		templateSimple: '<div class="search_row"><a href="%link%" class="item-name">%text%</a></div>',
+		templateText: '<div class="search_row"><a href="%link%" class="item-name">%text%</a><span class="search-comment">%comment%</span></div>',
+		templateWithImageSimple: '<div class="search_row"><div class="item-left"><a href="%link%" class="item-image"><img width="%width%" height="%height%" src="%image%"/></a></div><div class="item-info"><a href="%link%" class="item-name">%text%</a></div></div>',
+		templateWithImage: '<div class="search_row"><div class="item-left"><a href="%link%" class="item-image"><img width="%width%" height="%height%" src="%image%"/></a></div><div class="item-info"><a href="%link%" class="item-name">%text%</a><span class="search-comment">%comment%</span></div></div>'
+	};
 
     $.fn.fastSearch = function(options) {
 
@@ -31,9 +50,15 @@
             url: '/',
 			type: 'get',
 			dataType: 'html',
+			rowTemplate: fastSearch.templateSimple,
             onStart: function() {},
-            onReady: function() {}
+            onReady: function() {},
+			processResult: function(dataRow){return dataRow;}
         }, options);
+
+		var render = function(data){
+			return settings.rowTemplate.format(data)
+		};
 
         var search = function(e) {
 
@@ -61,13 +86,29 @@
                 context: this,
                 success: function(data) {
 
-                    if (data !== '') {
-                        fast_search_result.html(data);
+					var html = '';
+					if(settings.dataType == 'json'){
+						//settings.onRender(data);
+
+						for(var row in data){
+							var convertedData = settings.processResult(data[row]);
+							html += render(convertedData);
+						}
+
+					}
+					else{
+						html = data;
+					}
+
+
+                    if (html !== '') {
+                        fast_search_result.html(html);
                     } else {
                         fast_search_result.fadeOut('fast');
                     }
 
-                    settings.onReady(data);
+					settings.onReady(html);
+
                 }
             });
 
@@ -91,7 +132,7 @@
 			}
             $(this).attr('autocomplete', 'off');
             $(this).attr('fastSearch', 'true');
-            $(this).after("<div class='fast_search_result' style='display:none;'></div>");
+            $(this).after('<div class="fast_search_result" style="display:none;"></div>');
             $(this).bind('keyup.fastSearch', search);
 			$(this).bind('blur.fastSearch', close);
 			$(this).bind('focus.fastSearch', focus);
