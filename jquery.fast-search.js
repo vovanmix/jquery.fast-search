@@ -60,7 +60,7 @@
 
             settings.onStart(text);
 			
-            fast_search_result.prepend('<div class="fast_search_loading"></p>');
+            fast_search_result.html('<div class="fast_search_loading"></div>');
             fast_search_result.fadeIn('fast');
 
             $.ajax({
@@ -95,6 +95,7 @@
                     if (html !== '') {
                         fast_search_result.html(html);
                     } else {
+						fast_search_result.html("");
                         fast_search_result.fadeOut('fast');
                     }
 
