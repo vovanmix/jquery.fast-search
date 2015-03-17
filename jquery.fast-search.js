@@ -23,17 +23,6 @@
  * todo: add a function for mapping result into object with above properties, as a default expect the exact object as a json result
  * todo: option to work with html response - dataType json
  */
-//if (!String.prototype.format) {
-//	String.prototype.format = function() {
-//		var args = arguments;
-//		return this.replace(/{(\d+)}/g, function(match, number) {
-//			return typeof args[number] != 'undefined'
-//				? args[number]
-//				: match
-//				;
-//		});
-//	};
-//}
 
 (function($) {
 
@@ -57,7 +46,11 @@
         }, options);
 
 		var render = function(data){
-			return settings.rowTemplate.format(data)
+			return template(settings.rowTemplate, data);
+		};
+
+		var template = function (template, data){
+			return template.replace(/%(\w*)%/g,function(m,key){return data.hasOwnProperty(key)?data[key]:"";});
 		};
 
         var search = function(e) {
@@ -91,8 +84,10 @@
 						//settings.onRender(data);
 
 						for(var row in data){
-							var convertedData = settings.processResult(data[row]);
-							html += render(convertedData);
+							if(data.hasOwnProperty(row)) {
+								var convertedData = settings.processResult(data[row]);
+								html += render(convertedData);
+							}
 						}
 
 					}
