@@ -17,6 +17,12 @@
  * limitations under the License.
  * ========================================================== */
 
+/**
+ * todo: add a template for displaying results, with 4 placeholders: text, comment, link, image
+ * todo: add an option to rewrite default template
+ * todo: add a function for mapping result into object with above properties, as a default expect the exact object as a json result
+ * todo: option to work with html response - dataType json
+ */
 (function($) {
 
     $.fn.fastSearch = function(options) {
