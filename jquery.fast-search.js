@@ -17,13 +17,6 @@
  * limitations under the License.
  * ========================================================== */
 
-/**
- * todo: add a template for displaying results, with 4 placeholders: text, comment, link, image
- * todo: add an option to rewrite default template
- * todo: add a function for mapping result into object with above properties, as a default expect the exact object as a json result
- * todo: option to work with html response - dataType json
- */
-
 (function($) {
 
 	var fastSearch = {
@@ -42,7 +35,8 @@
 			rowTemplate: fastSearch.templateSimple,
             onStart: function() {},
             onReady: function() {},
-			processResult: function(dataRow){return dataRow;}
+			processResult: function(data){return data;},
+			processResultRow: function(dataRow){return dataRow;}
         }, options);
 
 		var render = function(data){
@@ -83,10 +77,12 @@
 					if(settings.dataType == 'json'){
 						//settings.onRender(data);
 
-						for(var row in data){
-							if(data.hasOwnProperty(row)) {
-								var convertedData = settings.processResult(data[row]);
-								html += render(convertedData);
+						var convertedData = settings.processResult(data);
+
+						for(var row in convertedData){
+							if(convertedData.hasOwnProperty(row)) {
+								var convertedDataRow = settings.processResultRow(convertedData[row]);
+								html += render(convertedDataRow);
 							}
 						}
 
