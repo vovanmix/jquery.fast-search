@@ -31,10 +31,10 @@ HTML response will be shown right under the input element. You can return any co
 
 ###JSON
 JSON response will be shown inside the template. Plugin comes with 4 default templates:
-*`templateSimple` - simple links
-*`templateText` - links with descriptions
-*`templateWithImageSimple` - images with links
-*`templateWithImage` - images with links and with description
+* `templateSimple` - simple links
+* `templateText` - links with descriptions
+* `templateWithImageSimple` - images with links
+* `templateWithImage` - images with links and with description
 First template is default. You can specify the template with `rowTemplate` parameter.
 Response could be any JSON object or array. Plugin will work with the following format:
 ```
@@ -81,10 +81,10 @@ processResultRow: function(dataRow){
 
 
 ##Options
-*`url` - string, url to get search result
-*`type` - request type, `get` or `post`
-*`dataType` - type of received data, `html` or `json`
-*`rowTemplate` - template for the row if using `json`, properties of the fastSearch object, like fastSearch.templateSimple, or string with HTML code and placeholders marked like `%text%`
+* `url` - string, url to get search result
+* `type` - request type, `get` or `post`
+* `dataType` - type of received data, `html` or `json`
+* `rowTemplate` - template for the row if using `json`, properties of the fastSearch object, like fastSearch.templateSimple, or string with HTML code and placeholders marked like `%text%`
 * `onStart` - a callback before search starts, inserted query as a parameter
 * `onReady` - a callback after search ends, with generated html as a parameter
 * `processResult` - a callback to process the root object to return the array of found items
