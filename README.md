@@ -66,8 +66,8 @@ Response could be any JSON object or array. Plugin will work with the following 
 ]
 ```
 If you receive the response in the different format, you can process it with 2 callbacks:
-*`processResult` will process the root object to return the array of found items
-*`processResultRow` will process a single row to the needed format.
+* `processResult` will process the root object to return the array of found items
+* `processResultRow` will process a single row to the needed format.
 ```
 processResult: function(data){
 	...process...
