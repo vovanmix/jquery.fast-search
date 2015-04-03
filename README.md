@@ -35,7 +35,7 @@ JSON response will be shown inside the template. Plugin comes with 4 default tem
 * `templateText` - links with descriptions
 * `templateWithImageSimple` - images with links
 * `templateWithImage` - images with links and with description
-First template is default. You can specify the template with `rowTemplate` parameter.
+First template is default. You can specify the template with `rowTemplate` parameter, like fastSearch.templateSimple.
 Response could be any JSON object or array. Plugin will work with the following format:
 ```
 [

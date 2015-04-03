@@ -17,14 +17,14 @@
  * limitations under the License.
  * ========================================================== */
 
-(function($) {
+var fastSearch = {
+    templateSimple: '<div class="search_row"><a href="%link%" class="item-name">%text%</a></div>',
+    templateText: '<div class="search_row"><a href="%link%" class="item-name">%text%</a><span class="search-comment">%comment%</span></div>',
+    templateWithImageSimple: '<div class="search_row"><div class="item-left"><a href="%link%" class="item-image"><img width="%width%" height="%height%" src="%image%"/></a></div><div class="item-info"><a href="%link%" class="item-name">%text%</a></div></div>',
+    templateWithImage: '<div class="search_row"><div class="item-left"><a href="%link%" class="item-image"><img width="%width%" height="%height%" src="%image%"/></a></div><div class="item-info"><a href="%link%" class="item-name">%text%</a><span class="search-comment">%comment%</span></div></div>'
+};
 
-	var fastSearch = {
-		templateSimple: '<div class="search_row"><a href="%link%" class="item-name">%text%</a></div>',
-		templateText: '<div class="search_row"><a href="%link%" class="item-name">%text%</a><span class="search-comment">%comment%</span></div>',
-		templateWithImageSimple: '<div class="search_row"><div class="item-left"><a href="%link%" class="item-image"><img width="%width%" height="%height%" src="%image%"/></a></div><div class="item-info"><a href="%link%" class="item-name">%text%</a></div></div>',
-		templateWithImage: '<div class="search_row"><div class="item-left"><a href="%link%" class="item-image"><img width="%width%" height="%height%" src="%image%"/></a></div><div class="item-info"><a href="%link%" class="item-name">%text%</a><span class="search-comment">%comment%</span></div></div>'
-	};
+(function($) {
 
     $.fn.fastSearch = function(options) {
 
