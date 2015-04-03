@@ -1,0 +1,16 @@
+{
+  "name": "vovanmix/jquery.fast-search",
+  "type": "plugin",
+  "description": "jQuery plugin to make search suggestions easier",
+  "keywords": ["search","jQuery", "suggestions"],
+  "homepage": "http://github.com/vovanmix/jquery.fast-search",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Vladimir Mikhaylovskiy",
+      "email": "singingcode@gmail.com",
+      "homepage": "http://www.vprogrammer.com",
+      "role": "Developer"
+    }
+  ]
+}

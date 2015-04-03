@@ -1,0 +1,24 @@
+{
+  "name": "vovanmix/jquery.fast-search",
+  "version": "1.0.0",
+  "main": "jquery.fast-search.js",
+  "keywords": [
+    "search",
+    "ajax",
+    "json",
+    "input",
+    "autocomplete"
+  ],
+  "ignore": [
+    ".idea"
+  ],
+  "licenses": "MIT",
+  "homepage": "http://github.com/vovanmix/jquery.fast-search",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vovanmix/jquery.fast-search.git"
+  },
+  "dependencies": {
+    "jquery": ">=1.7.2"
+  }
+}
