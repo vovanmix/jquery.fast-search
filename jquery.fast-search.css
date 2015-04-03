@@ -37,7 +37,6 @@
 	z-index: 9999;
 	background: #fff;
 	width: 100%;
-	padding: 10px 10px 10px 10px;
 	margin-top: 0;
 	border-top: none;
 	line-height: 18px;
@@ -50,18 +49,22 @@
 .fast_search_result .search_row {
 	overflow: hidden;
 	height: 54px;
-	margin: 10px 0;
+	/*margin: 10px 0;*/
+	padding: 20px 10px 20px 10px;
+}
+.fast_search_result .search_row:hover{
+	background: #eee;
 }
 
 /*.fast_search_result .item-image {*/
-	/*display: block;*/
-	/*float: left;*/
-	/*width: 50px;*/
-	/*height: 50px;*/
-	/*line-height: 50px;*/
-	/*margin: 0 auto;*/
-	/*margin-bottom: 4px;*/
-	/*vertical-align: top;*/
+/*display: block;*/
+/*float: left;*/
+/*width: 50px;*/
+/*height: 50px;*/
+/*line-height: 50px;*/
+/*margin: 0 auto;*/
+/*margin-bottom: 4px;*/
+/*vertical-align: top;*/
 /*}*/
 .fast_search_result .item-left{
 	display: block;
