@@ -39,6 +39,8 @@ var fastSearch = {
             processResultRow: function(dataRow){return dataRow;}
         }, options);
 
+        var currentXhr = null;
+
         var render = function(data){
             return template(settings.rowTemplate, data);
         };
@@ -51,6 +53,9 @@ var fastSearch = {
         };
 
         var search = function(e) {
+
+            if(currentXhr)
+                currentXhr.abort();
 
             var text = $(this).val();
 
@@ -66,7 +71,7 @@ var fastSearch = {
             fast_search_result.html('<div class="fast_search_loading"></div>');
             fast_search_result.fadeIn('fast');
 
-            $.ajax({
+            currentXhr = $.ajax({
                 url: settings.url,
                 type: settings.type,
                 data: {
