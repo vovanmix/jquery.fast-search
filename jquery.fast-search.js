@@ -44,6 +44,7 @@ var fastSearch = {
         var fast_search_result;
         var fast_search_icon;
         var fast_search_container;
+        var fast_search_box;
 
         var cache = {};
 
@@ -134,6 +135,9 @@ var fastSearch = {
             if (html !== '') {
                 fast_search_result.html(html);
                 fast_search_result.fadeIn('fast');
+                fast_search_result.find('a').click(function(){
+                    fast_search_box.val($(this).text().trim());
+                });
             } else {
                 fast_search_result.html("");
                 fast_search_result.fadeOut('fast');
@@ -162,6 +166,7 @@ var fastSearch = {
             $(this).wrap('<div class="fast_search_container"></div>');
             $(this).before('<i class="fast_search_icon"></i>');
             $(this).after('<div class="fast_search_result" style="display:none;"></div>');
+            fast_search_box = $(this);
             fast_search_container = $(this).parent();
             fast_search_result = fast_search_container.find('.fast_search_result');
             fast_search_icon = fast_search_container.find('.fast_search_icon');
