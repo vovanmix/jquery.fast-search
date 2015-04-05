@@ -1,33 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <title>jQuery FastSearch HTML demo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="stylesheet" href="./jquery.fast-search.css"/>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="./../jquery.fast-search.css"/>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+</head>
+<body>
 
-        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-        <script type="text/javascript" src="../jquery.fast-search.js"></script>
-    </head>
-    <body>
+<div class="well">
+    <form action="/search" id="displayForm" method="get" accept-charset="utf-8">
+        <div class="col-md-10">
+            <input name="q" placeholder="Search" type="text" id="q" class="form-control" />
+        </div>
+        <div class="col-md-2">
+            <input type="submit" value="Search" class="btn btn-default"/>
+        </div>
+        <div class="clear clearfix"></div>
+    </form>
+</div>
 
-        <form action="/search" id="displayForm" method="get" accept-charset="utf-8">
-            <div class="input text">
-                <input name="q" placeholder="Search" type="text" id="q" />
-            </div>
-            <div class="submit"><input type="submit" value="Search"/></div>
-        </form>
 
-        <script type="text/javascript">
-            $(document).ready(function(){
-                $('#q').fastSearch({
-                    url: 'server_response.json',
-                    dataType: 'json'
-                });
-            });
-        </script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="../../jquery.fast-search.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#q').fastSearch({
+            url: '/demo/server_response.json',
+            dataType: 'json',
+            rowTemplate: fastSearch.templateSimple
+        });
+    });
 
-    </body>
+</script>
+
+</body>
 </html>
