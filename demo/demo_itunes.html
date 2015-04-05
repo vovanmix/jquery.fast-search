@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>jQuery FastSearch HTML demo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./../jquery.fast-search.css"/>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+</head>
+<body>
+
+<div class="well">
+    <form action="/search" id="displayForm" method="get" accept-charset="utf-8">
+        <div class="col-md-10">
+            <input name="q" placeholder="Search" type="text" id="q" class="form-control" />
+        </div>
+        <div class="col-md-2">
+            <input type="submit" value="Search" class="btn btn-default"/>
+        </div>
+        <div class="clear clearfix"></div>
+    </form>
+</div>
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="../../jquery.fast-search.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#q').fastSearch({
+            url: 'https://itunes.apple.com/search?callback=?',
+            parameterName: 'term',
+            dataType: 'jsonp',
+            rowTemplate: fastSearch.templateWithImage,
+            limit: 3,
+            processResult: function(data){
+                return data.results;
+            },
+            processResultRow: function(dataRow){
+                return {
+                    text: dataRow.trackName,
+                    link: dataRow.trackViewUrl,
+                    comment: dataRow.artistName + ', '+ (dataRow.collectionName ? dataRow.collectionName : ''),
+                    image: dataRow.artworkUrl30
+//                    width:
+//                    height:
+                };
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

@@ -21,8 +21,8 @@
 var fastSearch = {
     templateSimple: '<div class="search_row"><a href="%link%" class="item-name">%text%</a></div>',
     templateText: '<div class="search_row"><a href="%link%" class="item-name">%text%</a><span class="search-comment">%comment%</span></div>',
-    templateWithImageSimple: '<div class="search_row"><div class="item-left"><a href="%link%" class="item-image"><img width="%width%" height="%height%" src="%image%"/></a></div><div class="item-info"><a href="%link%" class="item-name">%text%</a></div></div>',
-    templateWithImage: '<div class="search_row"><div class="item-left"><a href="%link%" class="item-image"><img width="%width%" height="%height%" src="%image%"/></a></div><div class="item-info"><a href="%link%" class="item-name">%text%</a><span class="search-comment">%comment%</span></div></div>'
+    templateWithImageSimple: '<div class="search_row"><div class="item-left"><a href="%link%" class="item-image"><img width="%width%" height="%height%" src="%image%"/></a></div><div class="item-info"><a href="%link%" class="item-name">%text%</a></div><div class="clear clearfix"></div></div>',
+    templateWithImage: '<div class="search_row"><div class="item-left"><a href="%link%" class="item-image"><img width="%width%" height="%height%" src="%image%"/></a></div><div class="item-info"><a href="%link%" class="item-name">%text%</a><span class="search-comment">%comment%</span></div><div class="clear clearfix"></div></div>'
 };
 (function($) {
 
@@ -31,7 +31,9 @@ var fastSearch = {
         var settings = $.extend({
             url: '/',
             type: 'get',
-            dataType: 'html',
+            dataType: 'html', //json, jsonp
+            parameterName: 'q',
+            limit: 10,
             rowTemplate: fastSearch.templateSimple,
             onStart: function() {},
             onReady: function() {},
@@ -81,12 +83,12 @@ var fastSearch = {
                 resultRender(cache[text].data);
             }
             else {
+                var requestData = {};
+                requestData[settings.parameterName] = text;
                 currentXhr = $.ajax({
                     url: settings.url,
                     type: settings.type,
-                    data: {
-                        'q': text
-                    },
+                    data: requestData,
                     dataType: settings.dataType,
                     context: this,
                     success: function(data){
@@ -110,10 +112,11 @@ var fastSearch = {
 
         var resultProcess = function(data){
             var html = '';
-            if(settings.dataType == 'json'){
+            if(settings.dataType != 'html'){
                 //settings.onRender(data);
 
                 var convertedData = settings.processResult(data);
+                convertedData = convertedData.slice(0, settings.limit);
 
                 for(var row in convertedData){
                     if(convertedData.hasOwnProperty(row)) {

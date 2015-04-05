@@ -47,8 +47,8 @@
 }
 
 .fast_search_result .search_row {
-	overflow: hidden;
-	height: 54px;
+	/*overflow: hidden;*/
+	/*height: 54px;*/
 	/*margin: 10px 0;*/
 	padding: 20px 10px 20px 10px;
 }
