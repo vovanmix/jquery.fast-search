@@ -36,10 +36,16 @@ var fastSearch = {
             onStart: function() {},
             onReady: function() {},
             processResult: function(data){return data;},
-            processResultRow: function(dataRow){return dataRow;}
+            processResultRow: function(dataRow){return dataRow;},
+            cacheLifeTime: 600000 //default to 10 minutes
         }, options);
 
         var currentXhr = null;
+        var fast_search_result;
+        var fast_search_icon;
+        var fast_search_container;
+
+        var cache = {};
 
         var render = function(data){
             return template(settings.rowTemplate, data);
@@ -59,63 +65,84 @@ var fastSearch = {
 
             var text = $(this).val();
 
-            var fast_search_result = $(this).parent().find('.fast_search_result');
-
-            if (text === '') {
+            if (text === '' || text.length < 2) {
                 fast_search_result.fadeOut('fast');
                 return;
             }
 
             settings.onStart(text);
 
-            fast_search_result.html('<div class="fast_search_loading"></div>');
-            fast_search_result.fadeIn('fast');
+            //fast_search_result.html('<div class="fast_search_loading"></div>');
+            fast_search_icon.addClass("loading");
+            //fast_search_result.fadeIn('fast');
 
-            currentXhr = $.ajax({
-                url: settings.url,
-                type: settings.type,
-                data: {
-                    'q': text
-                },
-                dataType: settings.dataType,
-                context: this,
-                success: function(data) {
-
-                    var html = '';
-                    if(settings.dataType == 'json'){
-                        //settings.onRender(data);
-
-                        var convertedData = settings.processResult(data);
-
-                        for(var row in convertedData){
-                            if(convertedData.hasOwnProperty(row)) {
-                                var convertedDataRow = settings.processResultRow(convertedData[row]);
-                                html += render(convertedDataRow);
-                            }
-                        }
-
+            if(cache[text] && ($.now() - cache[text].time) < settings.cacheLifeTime ){
+                resultRender(cache[text].data);
+            }
+            else {
+                currentXhr = $.ajax({
+                    url: settings.url,
+                    type: settings.type,
+                    data: {
+                        'q': text
+                    },
+                    dataType: settings.dataType,
+                    context: this,
+                    success: function(data){
+                        resultCallback(data, text);
                     }
-                    else{
-                        html = data;
-                    }
-
-
-                    if (html !== '') {
-                        fast_search_result.html(html);
-                    } else {
-                        fast_search_result.html("");
-                        fast_search_result.fadeOut('fast');
-                    }
-
-                    settings.onReady(html);
-
-                }
-            });
+                });
+            }
 
         };
 
+        var resultCallback = function(data, text){
+            var html = resultProcess(data);
+
+            cache[text] = {
+                data: html,
+                time: $.now()
+            };
+
+            resultRender(html);
+        };
+
+        var resultProcess = function(data){
+            var html = '';
+            if(settings.dataType == 'json'){
+                //settings.onRender(data);
+
+                var convertedData = settings.processResult(data);
+
+                for(var row in convertedData){
+                    if(convertedData.hasOwnProperty(row)) {
+                        var convertedDataRow = settings.processResultRow(convertedData[row]);
+                        html += render(convertedDataRow);
+                    }
+                }
+
+            }
+            else{
+                html = data;
+            }
+
+            return html;
+        };
+
+        var resultRender = function(html){
+            fast_search_icon.removeClass("loading");
+            if (html !== '') {
+                fast_search_result.html(html);
+                fast_search_result.fadeIn('fast');
+            } else {
+                fast_search_result.html("");
+                fast_search_result.fadeOut('fast');
+            }
+
+            settings.onReady(html);
+        };
+
         var close = function(){
-            var fast_search_result = $(this).parent().find('.fast_search_result');
             fast_search_result.fadeOut('fast');
         };
 
@@ -132,7 +159,12 @@ var fastSearch = {
             }
             $(this).attr('autocomplete', 'off');
             $(this).attr('fastSearch', 'true');
+            $(this).wrap('<div class="fast_search_container"></div>');
+            $(this).before('<i class="fast_search_icon"></i>');
             $(this).after('<div class="fast_search_result" style="display:none;"></div>');
+            fast_search_container = $(this).parent();
+            fast_search_result = fast_search_container.find('.fast_search_result');
+            fast_search_icon = fast_search_container.find('.fast_search_icon');
             $(this).bind('keyup.fastSearch', search);
             $(this).bind('blur.fastSearch', close);
             $(this).bind('focus.fastSearch', focus);
