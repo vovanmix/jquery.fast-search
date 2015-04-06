@@ -1,5 +1,6 @@
 {
   "name": "vovanmix/jquery.fast-search",
+  "version": "1.0.4",
   "type": "plugin",
   "description": "jQuery plugin to make search suggestions easier",
   "keywords": ["search","jQuery", "suggestions"],
