@@ -1,8 +1,8 @@
 /* ===========================================================
  * jquery.fast-search.js
- * v 0.1 05 March 2014
+ * v 1.0.4 April 05 2015
  * ===========================================================
- * Copyright 2014 Vladimir Mikhaylovskiy.
+ * Copyright 2015 Vladimir Mikhaylovskiy.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
