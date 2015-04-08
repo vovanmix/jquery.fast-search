@@ -68,7 +68,7 @@ var fastSearch = {
 
             var text = $(this).val();
 
-            if (text === '' || text.length < 2) {
+            if (text === '' || text.length < 1) {
                 fast_search_result.fadeOut('fast');
                 return;
             }
