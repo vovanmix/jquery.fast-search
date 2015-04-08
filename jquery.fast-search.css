@@ -50,7 +50,8 @@
 	/*overflow: hidden;*/
 	/*height: 54px;*/
 	/*margin: 10px 0;*/
-	padding: 20px 10px 20px 10px;
+	height: 40px;
+	padding: 10px 10px 10px 10px;
 }
 .fast_search_result .search_row:hover{
 	background: #eee;
