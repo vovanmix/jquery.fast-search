@@ -159,7 +159,6 @@ var fastSearch = {
                     links.each(function () {
                         var href = $(this).attr('href');
                         if (href != '') {
-                            console.log(href);
                             window.location.href = href;
                         }
                     });
