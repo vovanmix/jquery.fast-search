@@ -53,6 +53,7 @@
 	/*height: 40px;*/
 	padding: 10px 10px 10px 10px;
 }
+.fast_search_result .search_row.selected,
 .fast_search_result .search_row:hover{
 	background: #eee;
 }

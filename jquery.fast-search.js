@@ -47,6 +47,7 @@ var fastSearch = {
         var fast_search_icon;
         var fast_search_container;
         var fast_search_box;
+        var fast_search_form;
 
         var cache = {};
 
@@ -66,7 +67,7 @@ var fastSearch = {
             if(currentXhr)
                 currentXhr.abort();
 
-            var text = $(this).val();
+            var text = fast_search_box.val();
 
             if (text === '' || text.length < 1) {
                 close();
@@ -97,6 +98,74 @@ var fastSearch = {
                 });
             }
 
+        };
+
+        var keyNavigation = function(e){
+            var selected;
+            var newSelected;
+            switch(e.which){
+                case 38://Up
+                    selected = fast_search_result.find('>.selected');
+                    if(selected.length){
+                        newSelected = selected.prev();
+                    }
+                    else{
+                        newSelected = fast_search_result.find('>*:first-child');
+                    }
+                    if(newSelected.length) {
+                        selected.removeClass('selected');
+                        newSelected.addClass('selected');
+
+                        newSelected.find('a').each(function(){
+                            var text = $(this).text().trim();
+                            if(text != '')
+                                fast_search_box.val(text);
+                        });
+                    }
+                    break;
+                case 40://Down
+                    selected = fast_search_result.find('>.selected');
+                    if(selected.length){
+                        newSelected = selected.next();
+                    }
+                    else{
+                        newSelected = fast_search_result.find('>*:first-child');
+                    }
+                    if(newSelected.length) {
+                        selected.removeClass('selected');
+                        newSelected.addClass('selected');
+
+                        newSelected.find('a').each(function(){
+                            var text = $(this).text().trim();
+                            if(text != '')
+                                fast_search_box.val(text);
+                        });
+                    }
+                    break;
+                case 13://Enter
+                    submitForm();
+                    break;
+                default:
+                    search(e);
+                    break;
+            }
+        };
+
+        var submitForm = function(){
+            var selected = fast_search_result.find('>.selected');
+            if(selected.length) {
+                var links = selected.find('a');
+                if(links.length) {
+                    links.each(function () {
+                        var href = $(this).attr('href');
+                        if (href != '') {
+                            console.log(href);
+                            window.location.href = href;
+                        }
+                    });
+                    return false;
+                }
+            }
         };
 
         var resultCallback = function(data, text){
@@ -139,7 +208,9 @@ var fastSearch = {
                 fast_search_result.html(html);
                 fast_search_result.fadeIn('fast');
                 fast_search_result.find('a').click(function(){
-                    fast_search_box.val($(this).text().trim());
+                    var text = $(this).text().trim();
+                    if(text != '')
+                        fast_search_box.val(text);
                 });
             } else {
                 fast_search_result.html("");
@@ -154,12 +225,12 @@ var fastSearch = {
             fast_search_result.fadeOut('fast');
         };
 
-        var focus = function(){
-            var text = $(this).val();
-            if(text != ''){
-                $(this).trigger('keyup.fastSearch');
-            }
-        };
+        //var focus = function(){
+        //    var text = $(this).val();
+        //    if(text != ''){
+        //        $(this).trigger('keyup.fastSearch');
+        //    }
+        //};
 
         return this.each(function() {
             if($(this).attr('fastSearch') == 'true'){
@@ -174,10 +245,12 @@ var fastSearch = {
             fast_search_container = $(this).parent();
             fast_search_result = fast_search_container.find('.fast_search_result');
             fast_search_icon = fast_search_container.find('.fast_search_icon');
-            $(this).bind('keyup.fastSearch', search);
+            fast_search_form = $(this).closest('form');
+            //$(this).bind('keyup.fastSearch', search);
             //$(this).bind('blur.fastSearch', close);
-            $(this).bind('focus.fastSearch', focus);
-
+            //$(this).bind('focus.fastSearch', focus);
+            $(this).bind('keyup.fastSearch', keyNavigation);
+            fast_search_form.bind('submit.fastSearch', submitForm);
         });
 
     };
