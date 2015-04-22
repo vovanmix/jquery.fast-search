@@ -69,7 +69,7 @@ var fastSearch = {
             var text = $(this).val();
 
             if (text === '' || text.length < 1) {
-                fast_search_result.fadeOut('fast');
+                close();
                 return;
             }
 
@@ -150,6 +150,7 @@ var fastSearch = {
         };
 
         var close = function(){
+            fast_search_icon.removeClass("loading");
             fast_search_result.fadeOut('fast');
         };
 
@@ -174,7 +175,7 @@ var fastSearch = {
             fast_search_result = fast_search_container.find('.fast_search_result');
             fast_search_icon = fast_search_container.find('.fast_search_icon');
             $(this).bind('keyup.fastSearch', search);
-            $(this).bind('blur.fastSearch', close);
+            //$(this).bind('blur.fastSearch', close);
             $(this).bind('focus.fastSearch', focus);
 
         });
